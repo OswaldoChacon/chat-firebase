@@ -16,23 +16,29 @@ export class ChatService {
     public auth: AngularFireAuth,
     private afs: AngularFirestore
   ) {
-    this.auth.authState.subscribe(usuario => {
+    this.auth.authState.pipe(
+      tap(console.log)
+    ).subscribe(usuario => {      
       if (!usuario)
         return
 
 
       this.usuario.nombre = usuario.displayName;
-      this.usuario.uid = usuario.uid;
-      console.log(this.usuario)
+      this.usuario.uid = usuario.uid;      
     });
   }
 
   login(proveedor: string) {
+    if(proveedor === 'google')
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    else if(proveedor === 'twitter')
+    this.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
   }
 
   logout() {
+    this.usuario = {};
     this.auth.signOut();
+    // console.log(this.usuario);
   }
 
   cargarMensajes() {
@@ -50,9 +56,10 @@ export class ChatService {
 
   agregarMensaje(texto: string) {
     let mensaje: any = {
-      nombre: 'Demo',
+      nombre: this.usuario.nombre,
       mensaje: texto,
-      fecha: new Date().getTime()
+      fecha: new Date().getTime(),
+      uid: this.usuario.uid
     }
 
     return this.itemsCollection.add(mensaje)
