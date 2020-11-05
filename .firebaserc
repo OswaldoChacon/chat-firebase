@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-chat-da7df": {
+      "hosting": {
+        "chat-firebase": [
+          "angular-chat-da7df"
+        ]
+      }
+    }
+  }
+}
