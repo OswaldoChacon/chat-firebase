@@ -14,7 +14,7 @@ export class ChatComponent implements OnInit {
   constructor(
     public chatService: ChatService
   ) {
-    this.chatService.cargarMensajes().subscribe(()=>{
+    this.chatService.cargarMensajes().subscribe(() => {
       setTimeout(() => {
         this.elemento.scrollTop = this.elemento.scrollHeight
       }, 20);

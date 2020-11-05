@@ -18,21 +18,21 @@ export class ChatService {
   ) {
     this.auth.authState.pipe(
       tap(console.log)
-    ).subscribe(usuario => {      
+    ).subscribe(usuario => {
       if (!usuario)
         return
 
 
       this.usuario.nombre = usuario.displayName;
-      this.usuario.uid = usuario.uid;      
+      this.usuario.uid = usuario.uid;
     });
   }
 
   login(proveedor: string) {
-    if(proveedor === 'google')
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    else if(proveedor === 'twitter')
-    this.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
+    if (proveedor === 'google')
+      this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    else if (proveedor === 'twitter')
+      this.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
   }
 
   logout() {
